@@ -1,9 +1,8 @@
-# demomicroservices
+# Demo Microservicios en JAVA + Spring
 
 ## Descripción
 
-Este proyecto es un backend desarrollado con **Spring Boot** que expone una API REST para la gestión de pacientes. Utiliza una base de datos Oracle Autonomous Database y sigue una arquitectura de microservicios sencilla, ideal para propósitos educativos o como base para sistemas de salud.
-
+Este proyecto es un backend desarrollado con **Spring Boot** que expone una API REST para la gestión de pacientes. Utiliza una base de datos Oracle Autonomous Database y sigue una arquitectura de microservicios sencilla
 ## Tecnologías utilizadas
 
 - **Java 17**: Lenguaje principal del backend.
@@ -33,10 +32,7 @@ Este proyecto es un backend desarrollado con **Spring Boot** que expone una API 
 ## Ejecución
 
 1. Configura el archivo `application.properties` con los datos de tu wallet y base de datos Oracle.
-2. Ejecuta el proyecto con Maven o desde tu IDE:
-   ```sh
-   ./mvnw spring-boot:run
-   ```
-3. Accede a la API en: `http://localhost:8080/api/v1/pacientes`
+2. Ejecutar aplicación con java run.
+3. Acceder a la API en: `http://localhost:8080/api/v1/pacientes`
 
 ---
