@@ -2,7 +2,8 @@
 
 ## Descripción
 
-Este proyecto es un backend desarrollado con **Spring Boot** que expone una API REST para la gestión de pacientes. Utiliza una base de datos Oracle Autonomous Database y sigue una arquitectura de microservicios sencilla
+Este proyecto es un backend desarrollado con **Spring Boot** que expone una API REST para la gestión de pacientes. Utiliza una base de datos Oracle Autonomous Database (con wallet) y sigue una arquitectura de microservicios sencilla.
+
 ## Tecnologías utilizadas
 
 - **Java 17**: Lenguaje principal del backend.
@@ -11,6 +12,7 @@ Este proyecto es un backend desarrollado con **Spring Boot** que expone una API 
 - **Oracle Autonomous Database**: Base de datos en la nube de Oracle.
 - **Lombok**: Simplifica la escritura de código eliminando boilerplate (getters, setters, etc).
 - **Maven**: Herramienta de gestión de dependencias y construcción del proyecto.
+- **Docker & Docker Compose**: Para contenerización y orquestación de la aplicación y el acceso seguro a Oracle mediante wallet.
 
 ## Dependencias mínimas en `pom.xml` y su uso
 
@@ -29,10 +31,41 @@ Este proyecto es un backend desarrollado con **Spring Boot** que expone una API 
 - `service/`: Lógica de negocio y servicios.
 - `resources/application.properties`: Configuración de la aplicación y conexión a la base de datos.
 
-## Ejecución
+## Ejecución con Docker y Oracle Wallet
 
-1. Configura el archivo `application.properties` con los datos de tu wallet y base de datos Oracle.
-2. Ejecutar aplicación con java run.
-3. Acceder a la API en: `http://localhost:8080/api/v1/pacientes`
+1. **Prepara tu wallet de Oracle**  
+   Descarga el wallet desde Oracle Cloud y colócalo en la carpeta `Wallet_YF7TJC6PMFWBDZF6` dentro del proyecto.
+
+2. **Configura el archivo `application.properties`**  
+   Asegúrate de que la URL de conexión apunte al wallet dentro del contenedor:
+   ```properties
+   spring.datasource.url=jdbc:oracle:thin:@yf7tjc6pmfwbdzf6_high?TNS_ADMIN=/app/Wallet_YF7TJC6PMFWBDZF6
+   spring.datasource.username=EJEMPLO_SPRING
+   spring.datasource.password=tu_contraseña
+   spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.show-sql=true
+   spring.jpa.properties.hibernate.format_sql=true
+   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
+   ```
+
+3. **Construye el proyecto y la imagen Docker**
+   ```sh
+   ./mvnw clean package
+   docker-compose build
+   ```
+
+4. **Levanta los servicios**
+   ```sh
+   docker-compose up
+   ```
+
+5. **Accede a la API**
+   - URL base: `http://localhost:8080/api/v1/pacientes`
+
+## Notas sobre Docker y Wallet
+
+- El archivo `docker-compose.yml` monta la carpeta del wallet en el contenedor y define la variable de entorno `TNS_ADMIN` para que el driver Oracle lo encuentre correctamente.
+- El `Dockerfile` copia el jar generado y la configuración necesaria para ejecutar la aplicación en el contenedor.
 
 ---
