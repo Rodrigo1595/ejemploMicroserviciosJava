@@ -1,13 +1,30 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:16
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: demomicroservices
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5436:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   app:
     build: .
     container_name: demomicroservices
     ports:
       - "8080:8080"
+    depends_on:
+      - db
     environment:
-      - TNS_ADMIN=/app/Wallet_YF7TJC6PMFWBDZF6
-    volumes:
-      - ./Wallet_YF7TJC6PMFWBDZF6:/app/Wallet_YF7TJC6PMFWBDZF6:ro
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/demomicroservices
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
     restart: unless-stopped
+
+volumes:
+  pgdata:

@@ -8,9 +8,6 @@ WORKDIR /app
 COPY target/demomicroservices-0.0.1-SNAPSHOT.jar app.jar
 COPY src/main/resources/application.properties ./src/main/resources/application.properties
 
-# Copia la wallet de Oracle (ajusta la ruta si es necesario)
-COPY Wallet_YF7TJC6PMFWBDZF6 /app/Wallet_YF7TJC6PMFWBDZF6
-
 # Expone el puerto de la app
 EXPOSE 8080
 
