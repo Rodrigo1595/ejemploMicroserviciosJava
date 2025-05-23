@@ -8,6 +8,9 @@ Guía paso a paso para construir, subir y desplegar tu microservicio en Amazon E
 
 1. **Ajusta la imagen en tu `docker-compose.yml`:**
    ```yaml
+   #En app
+   #Anterior build: .
+   #Cambiar build por image ya que es la que traeremos desde la nube de docker hub.
    image: rodamigo95/demomicroservices:latest
    ```
 
