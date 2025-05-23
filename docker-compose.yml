@@ -14,7 +14,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   app:
-    build: .
+    image: rodamigo95/demomicroservices:latest
     container_name: demomicroservices
     ports:
       - "8080:8080"
