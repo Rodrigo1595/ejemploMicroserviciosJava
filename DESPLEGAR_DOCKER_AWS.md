@@ -56,7 +56,7 @@ Guía paso a paso para construir, subir y desplegar tu microservicio en Amazon E
 
 ```sh
 sudo yum update -y
-sudo amazon-linux-extras install docker
+sudo dnf install docker
 sudo service docker start
 sudo usermod -a -G docker ec2-user
 # Cierra sesión y vuelve a entrar para aplicar el grupo docker
